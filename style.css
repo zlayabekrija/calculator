@@ -1,0 +1,40 @@
+#calculator {
+	position: relative;
+	margin: auto;
+	height: 45vh;
+	width: 40vw;
+	border: 5px solid black;
+	border-radius: 5px;
+	background-color: lightblue
+}
+
+#display {
+	position: relative;
+	height: 14vh;
+	width: 90%;
+	margin: auto;
+	background-color: aqua;
+	border: 5px solid blue;
+	border-radius: 20px;
+	top: 3%;
+}
+
+#buttons {
+	position: relative;
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	grid-column-gap: 1%;
+	grid-row-gap: 2%;
+	margin: auto;
+	padding: 1%;
+	top: 5%;
+}
+
+#equals {
+	grid-column: span 2;
+}
+
+button {
+	box-shadow: 2px 2px black;
+	border-radius: 5%;
+}
