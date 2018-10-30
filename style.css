@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
 #calculator {
 	position: relative;
 	margin: auto;
@@ -37,4 +38,19 @@
 button {
 	box-shadow: 2px 2px black;
 	border-radius: 5%;
+}
+p
+{
+	position: relative;
+	margin: auto;
+	top: 15%;
+	right:1%;
+	text-align: right;
+	font-size: 2.5em;
+	font-family: 'Orbitron', sans-serif;
+}
+#temporary{
+	margin: auto;
+	font-size: 1em;
+
 }

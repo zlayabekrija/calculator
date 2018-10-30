@@ -1,43 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" value="" >
+<html lang="en"  >
 
 <head>
-	<meta charset="utf-8" value="" >
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" value="" >
+	<meta charset="utf-8"  >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"  >
 	<title>Calculator</title>
-	<link rel="stylesheet" href="style.css" value="" >
+	<link rel="stylesheet" href="style.css"  >
 </head>
 
 <body>
-	<script src="script.js" value="" ></script>
-	<div id="calculator" value="" >
-		<div id="display" value="" >
-			<p id="reslut" value="" ></p>
+	<script src="script.js"  ></script>
+	<div id="calculator"  >
+		<div id="display"  >
+			<p id="temporary">1</p>
+			<p id="result">0</p>
 		</div>
-		<div id="buttons" value="" >
-			<button onclick="calc(this)" value="%" value="" >&percnt;</button>
-			<button onclick="calc(this)" value="r" value="" >&radic;</button>
-			<button onclick="calc(this)" value="s" >x&sup2;</button>
-			<button onclick="calc(this)" value="l" >1/&#8339;</button>
-			<button onclick="calc(this)" value="7" >7</button>
-			<button onclick="calc(this)" value="8" >8</button>
-			<button onclick="calc(this)" value="9" >9</button>
-			<button onclick="calc(this)" value="/" >&divide;</button>
-			<button onclick="calc(this)" value="4" >4</button>
-			<button onclick="calc(this)" value="5" >5</button>
-			<button onclick="calc(this)" value="6" >6</button>
-			<button onclick="calc(this)" value="*" >&times;</button>
-			<button onclick="calc(this)" value="1" >1</button>
-			<button onclick="calc(this)" value="2" >2</button>
-			<button onclick="calc(this)" value="3" >3</button>
-			<button onclick="calc(this)" value="+" >&plus;</button>
-			<button onclick="calc(this)" value="!" >&plusmn;</button>
-			<button onclick="calc(this)" value="0" >0</button>
-			<button onclick="calc(this)" value="." >.</button>
-			<button onclick="calc(this)" value="-" >&minus;</button>
-			<button onclick="none()" value="" >Cls</button>
-			<button onclick="calc(this)" value="back" >Back</button>
-			<button onclick="calc(this)" id="equals" value="=" >&equals;</button>
+		<div id="buttons"  >
+			<button onclick="getValues(this)" value="%"  >&percnt;</button>
+			<button onclick="getValues(this)" value="r"  >&radic;</button>
+			<button onclick="getValues(this)" value="s" >x&sup2;</button>
+			<button onclick="getValues(this)" value="l" >1/&#8339;</button>
+			<button onclick="getValues(this)" value="7" >7</button>
+			<button onclick="getValues(this)" value="8" >8</button>
+			<button onclick="getValues(this)" value="9" >9</button>
+			<button onclick="getValues(this)" value="/" >&divide;</button>
+			<button onclick="getValues(this)" value="4" >4</button>
+			<button onclick="getValues(this)" value="5" >5</button>
+			<button onclick="getValues(this)" value="6" >6</button>
+			<button onclick="getValues(this)" value="*" >&times;</button>
+			<button onclick="getValues(this)" value="1" >1</button>
+			<button onclick="getValues(this)" value="2" >2</button>
+			<button onclick="getValues(this)" value="3" >3</button>
+			<button onclick="getValues(this)" value="+" >&plus;</button>
+			<button onclick="getValues(this)" value="!" >&plusmn;</button>
+			<button onclick="getValues(this)" value="0" >0</button>
+			<button onclick="getValues(this)" value="." >.</button>
+			<button onclick="getValues(this)" value="-" >&minus;</button>
+			<button onclick="none()"  >Cls</button>
+			<button onclick="getValues(this)" value="back" >Back</button>
+			<button onclick="getValues(this)" id="equals" value="=" >&equals;</button>
 		</div>
 	</div>
 </body>
