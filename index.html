@@ -2,45 +2,46 @@
 <html lang="en"  >
 
 <head>
-	<meta charset="utf-8"  >
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"  >
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Calculator</title>
-	<link rel="stylesheet" href="style.css"  >
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-	<script src="script.js"  ></script>
-	<div id="calculator"  >
-		<div id="display"  >
+
+	<div id="calculator">
+		<div id="display">
 			<p id="temporary">1</p>
-			<p id="result">0</p>
+			<p id="result">88</p>
 		</div>
-		<div id="buttons"  >
-			<button onclick="getValues(this)" value="%"  >&percnt;</button>
-			<button onclick="getValues(this)" value="r"  >&radic;</button>
-			<button onclick="getValues(this)" value="s" >x&sup2;</button>
-			<button onclick="getValues(this)" value="l" >1/&#8339;</button>
-			<button onclick="getValues(this)" value="7" >7</button>
-			<button onclick="getValues(this)" value="8" >8</button>
-			<button onclick="getValues(this)" value="9" >9</button>
-			<button onclick="getValues(this)" value="/" >&divide;</button>
-			<button onclick="getValues(this)" value="4" >4</button>
-			<button onclick="getValues(this)" value="5" >5</button>
-			<button onclick="getValues(this)" value="6" >6</button>
-			<button onclick="getValues(this)" value="*" >&times;</button>
-			<button onclick="getValues(this)" value="1" >1</button>
-			<button onclick="getValues(this)" value="2" >2</button>
-			<button onclick="getValues(this)" value="3" >3</button>
-			<button onclick="getValues(this)" value="+" >&plus;</button>
-			<button onclick="getValues(this)" value="!" >&plusmn;</button>
-			<button onclick="getValues(this)" value="0" >0</button>
-			<button onclick="getValues(this)" value="." >.</button>
-			<button onclick="getValues(this)" value="-" >&minus;</button>
-			<button onclick="none()"  >Cls</button>
-			<button onclick="getValues(this)" value="back" >Back</button>
-			<button onclick="getValues(this)" id="equals" value="=" >&equals;</button>
+		<div id="buttons">
+			<button class="operations" value="%">&percnt;</button>
+			<button class="operations" value="r">&radic;</button>
+			<button class="operations" value="sq">x&sup2;</button>
+			<button class="operations" value="log">1/&#8339;</button>
+			<button class="numbers">7</button>
+			<button class="numbers">8</button>
+			<button class="numbers">9</button>
+			<button class="operations" value="/">&divide;</button>
+			<button class="numbers">4</button>
+			<button class="numbers">5</button>
+			<button class="numbers">6</button>
+			<button class="operations" value="*">&times;</button>
+			<button class="numbers">1</button>
+			<button class="numbers">2</button>
+			<button class="numbers">3</button>
+			<button class="operations" value="+">&plus;</button>
+			<button class="operations special">&plusmn;</button>
+			<button class="numbers">0</button>
+			<button class="operations special">.</button>
+			<button class="operations" value="-">&minus;</button>
+			<button>Cls</button>
+			<button>Back</button>
+			<button class="operations special">&equals;</button>
 		</div>
 	</div>
+	<script src="script.js"></script>
 </body>
 
 </html>

@@ -1,57 +1,77 @@
-let getThem = [];
+let numbers = [];
+let tempNums = [];
+let operations = '';
+let tempOperations = '';
+let result = 0;
 
-function add(firstValue, secondValue) {
-	return firstValue + secondValue;
-}
+let number = document.querySelectorAll('.numbers');
+number.forEach(button => {
+	button.addEventListener('click', event => {
+		if (numbers.length < 12 && operations === '') {
 
-function subtract(firstValue, secondValue) {
-	return firstValue - secondValue;
-}
+			numbers.push(event.srcElement.innerHTML);
+			document.getElementById('result').innerHTML = numbers.join('');
 
-function multiply(firstValue, secondValue) {
-	return firstValue * secondValue;
-}
 
-function devide(firstValue, secondValue) {
-	return firstValue / secondValue;
-}
+		} else if (tempNums.length < 12 && operations !== '' && tempOperations === '') {
+			tempNums.push(event.srcElement.innerHTML);
+			document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
+		} else {
+			return;
+		}
 
-function operate(firstValue, secondValue, operator) {
-	switch (operator) {
+
+	});
+});
+
+let operation = document.querySelectorAll('.operations');
+operation.forEach(button => {
+	button.addEventListener('click', event => {
+		if (operations === '') {
+			operations = event.srcElement.value;
+			document.getElementById('result').innerHTML = numbers.join('') + operations;
+		} else if (operations !== '' && tempNums.length > 0 && tempOperations === '') {
+			tempOperations = event.srcElement.value;
+			calculate(numbers, operations, tempNums);
+			numbers = [];
+			numbers.push(result);
+			operations = '';
+			tempNums = [];
+		} else {
+			return;
+		}
+	})
+});
+
+function calculate(firstValue, operations, secondValue) {
+
+	let first = parseInt(firstValue.join(''), 10);
+	let second = parseInt(secondValue.join(''), 10);
+	switch (operations) {
 		case '+':
-			return add(firstValue, secondValue);
+			result = first + second;
 			break;
-		case '-':
-			return subtract(firstValue, secondValue);
-			break;
-		case '*':
-			return multiply(firstValue, secondValue);
-			break;
-		case '/':
-			return devide(firstValue, secondValue);
-			break;
-	}
-}
 
-function getValues(x) {
-	let firstValue = [];
-	let secondValue = [];
-	let operator = '';
-	let value = x.value;
-	let preg = /(\D)/;
-	let result = 0;
-	getThem.push(value);
-	let master = getThem.join('');
-	let aux = master.split(preg);
-	firstValue = parseInt(aux[0]);
-	secondValue = parseInt(aux[2]);
-	operator = aux[1];
-	console.log(firstValue, secondValue, operator);
-	if (firstValue && secondValue && operator) {
-		document.getElementById('result').innerHTML = firstValue + operator + secondValue;
-		result += operate(firstValue, secondValue, operator);
-		
-		console.log(result);
-		getThem = [];
+		case '-':
+			result = first - second;
+			break;
+
+		case '*':
+			result = first * second;
+			break;
+
+		case '/':
+			result = first / second;
+			break;
+
+		default:
+			return;
+
 	}
+	if (Number.isInteger(result)) {
+		result;
+	} else {
+		result = result.toFixed(11);
+	}
+	return document.getElementById('result').innerHTML = result;
 }
