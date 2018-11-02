@@ -12,33 +12,33 @@
 
 	<div id="calculator">
 		<div id="display">
-			<p id="temporary">1</p>
 			<p id="result">0</p>
 		</div>
 		<div id="buttons">
 			<button class="operations" value="%">&percnt;</button>
 			<button class="operations" value="r">&radic;</button>
 			<button class="operations" value="sq">X<sup>Y</sup></button>
-			<button class="operations" value="log">1/&#8339;</button>
-			<button class="numbers">7</button>
-			<button class="numbers">8</button>
-			<button class="numbers">9</button>
+			<button class="operations" value="log"><sup>1</sup>/&#8339;</button>
+			<button class="numbers" value="7">7</button>
+			<button class="numbers" value="8">8</button>
+			<button class="numbers" value="9">9</button>
 			<button class="operations" value="/">&divide;</button>
-			<button class="numbers">4</button>
-			<button class="numbers">5</button>
-			<button class="numbers">6</button>
+			<button class="numbers" value="4">4</button>
+			<button class="numbers" value="5">5</button>
+			<button class="numbers" value="6">6</button>
 			<button class="operations" value="*">&times;</button>
-			<button class="numbers">1</button>
-			<button class="numbers">2</button>
-			<button class="numbers">3</button>
+			<button class="numbers" value="1">1</button>
+			<button class="numbers" value="2">2</button>
+			<button class="numbers" value="3">3</button>
 			<button class="operations" value="+">&plus;</button>
-			<button class="operations special">&plusmn;</button>
-			<button class="numbers">0</button>
-			<button class="operations special">.</button>
+			<button class="special" value="-">&plusmn;</button>
+			<button class="numbers" value="0">0</button>
+			<button id="dot" class="special" onclick="point()">.</button>
 			<button class="operations" value="-">&minus;</button>
 			<button onclick="cls()">Cls</button>
 			<button onclick="correct()">Back</button>
 			<button class="operations special">&equals;</button>
+			<button class="help">&#63;</button>
 		</div>
 	</div>
 	<script src="script.js"></script>

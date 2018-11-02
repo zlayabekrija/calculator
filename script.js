@@ -3,47 +3,50 @@ let tempNums = [];
 let operations = '';
 let tempOperations = '';
 let result = 0;
-let history = [];
+
 
 let number = document.querySelectorAll('.numbers');
 number.forEach(button => {
 	button.addEventListener('click', event => {
 		if (numbers.length < 12 && operations === '' && numbers.indexOf(result) === -1) {
-
-			numbers.push(event.srcElement.innerHTML);
-			document.getElementById('result').innerHTML = numbers.join('');
-
-
-		} else if (tempNums.length < 12 && operations !== '' && numbers.length > 0) {
-			tempNums.push(event.srcElement.innerHTML);
-			document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
+			numbers.push(event.srcElement.value);
+			if (numbers[0] === '0' && numbers[1] !== '.') {
+				numbers.shift();
+			}
+		} else if (tempNums.length < 12 && operations !== '' && (numbers.length > 0 || result !== 0)) {
+			tempNums.push(event.srcElement.value);
+			operations = operations || tempOperations;
+			tempOperations = '';
+			calculate(numbers, operations, tempNums);
 		} else {
 			return;
 		}
-
-
 	});
 });
 
 let operation = document.querySelectorAll('.operations');
 operation.forEach(button => {
 	button.addEventListener('click', event => {
-		if (operations === '') {
+		if (numbers.length < 1) {
+			return;
+		} else if (operations === '') {
 			operations = event.srcElement.value;
-			document.getElementById('result').innerHTML = numbers.join('') + operations;
+
 		} else if ((operations === 'r' || operations === 'log') && numbers.length > 0) {
 			calculate(numbers, operations, tempNums);
 			numbers = [];
 			numbers.push(result);
 			operations = '';
+
 		} else if (operations !== '' && tempNums.length > 0) {
 			tempOperations = event.srcElement.value;
-
 			calculate(numbers, operations, tempNums);
 			numbers = [];
 			numbers.push(result);
-			operations = '';
+			operations = tempOperations;
+			tempOperations = '';
 			tempNums = [];
+
 
 		} else {
 			return;
@@ -51,14 +54,11 @@ operation.forEach(button => {
 	})
 });
 
-function calculate(firstValue, operations, secondValue = [] ,tempOperations) {
+function calculate(firstValue, operations, secondValue) {
 
-	let first = parseInt(firstValue.join(''), 10);
-	let second = parseInt(secondValue.join(''), 10);
-	if (result !== 0) {
-		history.push(first, operations, second);
-		document.getElementById('temporary').innerHTML = history.join('');
-	}	
+	let first = parseFloat(firstValue.join(''), 10);
+	let second = parseFloat(secondValue.join(''), 10);
+
 	switch (operations) {
 		case '+':
 			result = first + second;
@@ -87,6 +87,9 @@ function calculate(firstValue, operations, secondValue = [] ,tempOperations) {
 		case 'log':
 			result = 1 / first;
 			break;
+		case 'l':
+			result = 1 / first;
+			break;
 		default:
 			return;
 
@@ -94,7 +97,7 @@ function calculate(firstValue, operations, secondValue = [] ,tempOperations) {
 	if (Number.isInteger(result)) {
 		result;
 	} else {
-		result = result.toFixed(2);
+		result = result.toFixed(10);
 	}
 	return document.getElementById('result').innerHTML = result;
 }
@@ -104,6 +107,7 @@ function cls() {
 	operations = '';
 	numbers = [];
 	tempNums = [];
+
 	return document.getElementById('result').innerHTML = 0;
 }
 
@@ -115,14 +119,88 @@ function correct() {
 	} else if (operations !== '') {
 		operations = '';
 		return document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
-	} else {
+	} else if (numbers.length > 1) {
 		numbers.pop();
 		return document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
+	} else {
+		return;
 	}
 }
-/* 
-for tommorow :
-##write the rest of functions
-##prepare for more functionality
-## add keyboard events
+window.addEventListener('keydown', (e) => {
+	console.log(e.key);
+	if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].indexOf(e.key) !== -1) {
+		if (numbers.length < 12 && operations === '' && numbers.indexOf(result) === -1) {
+			numbers.push(e.key);
+		} else if (tempNums.length < 12 && operations !== '' && (numbers.length > 0 || result !== 0)) {
+			tempNums.push(e.key);
+			operations = operations || tempOperations;
+			tempOperations = '';
+			calculate(numbers, operations, tempNums);
+		} else {
+			return;
+		}
+
+
+	} else if (['+', '-', '*', '/', '%', 'r', 'l'].indexOf(e.key) !== -1) {
+		if (numbers.length < 1) {
+			return;
+		} else if (operations === '') {
+			operations = e.key;
+			document.getElementById('result').innerHTML = numbers.join('') + operations;
+		} else if ((operations === 'r' || operations === 'l') && numbers.length > 0) {
+			calculate(numbers, operations, tempNums);
+			numbers = [];
+			numbers.push(result);
+			operations = '';
+		} else if (operations !== '' && tempNums.length > 0) {
+			tempOperations = e.key;
+			document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
+			calculate(numbers, operations, tempNums);
+			numbers = [];
+			numbers.push(result);
+			operations = tempOperations;
+			tempOperations = '';
+			tempNums = [];
+
+
+		} else {
+			return;
+		}
+	} else if (e.key === 'Backspace') {
+		correct();
+	} else if (e.key === 'Escape') {
+		cls();
+	}
+})
+window.addEventListener('click', (n) => {
+	document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
+
+})
+window.addEventListener('keypress', (f) => {
+	document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
+})
+
+function point() {
+	document.getElementById('dot').disabled = true;
+
+}
+let specials = document.querySelectorAll('.special');
+specials.forEach(button => {
+	button.addEventListener('click', event => {
+		if (event.srcElement.value === '-') {
+			if (numbers[0] !== '-') {
+				numbers.unshift('-');
+			
+			} else {
+				numbers.shift();
+				
+			}
+		}
+	})
+})
+/*
+for tommorow
+try with more true false statements
+check big numbers
+figure out the dot
 */
