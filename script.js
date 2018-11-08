@@ -1,3 +1,5 @@
+"use strict"
+
 let numbers = [];
 let tempNums = [];
 let operations = '';
@@ -187,14 +189,13 @@ function point() {
 let specials = document.querySelectorAll('.special');
 specials.forEach(button => {
 	button.addEventListener('click', event => {
-		if (event.srcElement.value === '-') {
-			if (numbers[0] !== '-') {
-				numbers.unshift('-');
-			
-			} else {
-				numbers.shift();
-				
-			}
+		console.log(numbers);
+		if (event.srcElement.value === '-' && numbers.indexOf('-') === -1 ) {
+			console.log('passed');
+			numbers.unshift('-');
+		}else{
+			console.log('failed');
+			numbers[0]=parseInt(numbers[0]);
 		}
 	})
 })
