@@ -12,7 +12,7 @@ number.forEach(button => {
 	button.addEventListener('click', event => {
 		if (numbers.length < 12 && operations === '' && numbers.indexOf(result) === -1) {
 			numbers.push(event.srcElement.value);
-			if (numbers[0] === '0' && numbers[1] !== '.') {
+			if (numbers[0] === '0') {
 				numbers.shift();
 			}
 		} else if (tempNums.length < 12 && operations !== '' && (numbers.length > 0 || result !== 0)) {
@@ -42,13 +42,17 @@ operation.forEach(button => {
 
 		} else if (operations !== '' && tempNums.length > 0) {
 			tempOperations = event.srcElement.value;
-			calculate(numbers, operations, tempNums);
-			numbers = [];
-			numbers.push(result);
-			operations = tempOperations;
-			tempOperations = '';
-			tempNums = [];
 
+			if (tempOperations === '=') {
+				return calculate(numbers, operations, tempNums);
+			} else {
+				calculate(numbers, operations, tempNums);
+				numbers = [];
+				numbers.push(result);
+				operations = tempOperations;
+				tempOperations = '';
+				tempNums = [];
+			}
 
 		} else {
 			return;
@@ -96,9 +100,7 @@ function calculate(firstValue, operations, secondValue) {
 			return;
 
 	}
-	if (Number.isInteger(result)) {
-		result;
-	} else {
+	if (!Number.isFinite(result)) {
 		result = result.toFixed(10);
 	}
 	return document.getElementById('result').innerHTML = result;
@@ -156,14 +158,18 @@ window.addEventListener('keydown', (e) => {
 			operations = '';
 		} else if (operations !== '' && tempNums.length > 0) {
 			tempOperations = e.key;
-			document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
-			calculate(numbers, operations, tempNums);
-			numbers = [];
-			numbers.push(result);
-			operations = tempOperations;
-			tempOperations = '';
-			tempNums = [];
-
+			if (tempOperations === '=') {
+				console.log('pressed =');
+				return calculate(numbers, operations, tempNums);
+			} else {
+				document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
+				calculate(numbers, operations, tempNums);
+				numbers = [];
+				numbers.push(result);
+				operations = tempOperations;
+				tempOperations = '';
+				tempNums = [];
+			}
 
 		} else {
 			return;
@@ -189,16 +195,42 @@ function point() {
 let specials = document.querySelectorAll('.special');
 specials.forEach(button => {
 	button.addEventListener('click', event => {
-		console.log(numbers);
-		if (event.srcElement.value === '-' && numbers.indexOf('-') === -1 ) {
-			console.log('passed');
-			numbers.unshift('-');
-		}else{
-			console.log('failed');
-			numbers[0]=parseInt(numbers[0]);
+
+		if (event.srcElement.value === '-') {
+			console.log('yes');
+			plusMinus(numbers, tempNums);
+		} else if (event.srcElement.value === '.') {
+			floating(numbers, tempNums);
+		} else {
+			equality();
 		}
 	})
 })
+
+function plusMinus(first, second) {
+	if (first.length === 0) {
+		return;
+	} else if (first.length > 0 && second.length < 1) {
+		if (first.indexOf('-') === -1 && first.length > 1) {
+			return first[0] = -first[0];
+		} else if (first.length <= 1 && first[0] > 0) {
+			return first[0] = -first[0];
+		} else if (first.length > 1 && first[0] > 0) {
+			return first[0] = Math.abs(first[0]);
+		} else if (first.length <= 1 && first[0] < 0) {
+			return first[0] = Math.abs(first[0]);
+		}
+
+	} else {
+		if (second[0] > 0) {
+			return second[0] = -second[0]
+		} else {
+			return second[0] = Math.abs(second[0]);
+		}
+	}
+}
+
+
 /*
 for tommorow
 try with more true false statements
