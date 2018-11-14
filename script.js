@@ -103,7 +103,9 @@ function calculate(firstValue, operations, secondValue) {
 	if (!Number.isFinite(result)) {
 		result = result.toFixed(10);
 	}
-	return document.getElementById('result').innerHTML = result;
+
+
+	return result;
 }
 
 function cls() {
@@ -111,21 +113,20 @@ function cls() {
 	operations = '';
 	numbers = [];
 	tempNums = [];
-
+	document.getElementById('top').innerHTML = '';
 	return document.getElementById('result').innerHTML = 0;
 }
 
 function correct() {
 
 	if (tempNums.length > 0) {
-		tempNums.pop();
-		return document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
+		return tempNums.pop();
 	} else if (operations !== '') {
-		operations = '';
-		return document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
+		return operations = '';
+
 	} else if (numbers.length > 1) {
-		numbers.pop();
-		return document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
+		return numbers.pop();
+
 	} else {
 		return;
 	}
@@ -150,7 +151,7 @@ window.addEventListener('keydown', (e) => {
 			return;
 		} else if (operations === '') {
 			operations = e.key;
-			document.getElementById('result').innerHTML = numbers.join('') + operations;
+			document.getElementById('result').innerHTML = numbers.join('').toLocaleString() + operations;
 		} else if ((operations === 'r' || operations === 'l') && numbers.length > 0) {
 			calculate(numbers, operations, tempNums);
 			numbers = [];
@@ -162,7 +163,7 @@ window.addEventListener('keydown', (e) => {
 				console.log('pressed =');
 				return calculate(numbers, operations, tempNums);
 			} else {
-				document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
+				document.getElementById('result').innerHTML = numbers.join('').toLocaleString() + operations + tempNums.join('');
 				calculate(numbers, operations, tempNums);
 				numbers = [];
 				numbers.push(result);
@@ -181,11 +182,10 @@ window.addEventListener('keydown', (e) => {
 	}
 })
 window.addEventListener('click', (n) => {
-	document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
-
+	display(numbers, tempNums, operations);
 })
 window.addEventListener('keypress', (f) => {
-	document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
+	display(numbers, tempNums, operations);
 })
 
 function point() {
@@ -230,10 +230,30 @@ function plusMinus(first, second) {
 	}
 }
 
+function display(first, second, ops) {
+	let display = parseFloat(first.join(''));
+	let outputFirst = display.toLocaleString();
+	display = parseFloat(second.join(''));
+	let outputSecond = display.toLocaleString();
+	 if (outputFirst === 'NaN' && outputSecond === 'NaN') {
+
+		return document.getElementById('result').innerHTML = 0;
+	}else if (outputSecond === 'NaN') {
+		return document.getElementById('result').innerHTML = outputFirst + ops;
+	}
+	else {
+		document.getElementById('top').innerHTML = outputFirst + ops;
+		document.getElementById('result').innerHTML = outputSecond;
+	}
+
+}
+
+
 
 /*
 for tommorow
 try with more true false statements
 check big numbers
 figure out the dot
+
 */
