@@ -12,6 +12,7 @@ number.forEach(button => {
 	button.addEventListener('click', event => {
 		if (numbers.length < 12 && operations === '' && numbers.indexOf(result) === -1) {
 			numbers.push(event.srcElement.value);
+			console.log(numbers);
 			if (numbers[0] === '0') {
 				numbers.shift();
 			}
@@ -42,9 +43,15 @@ operation.forEach(button => {
 
 		} else if (operations !== '' && tempNums.length > 0) {
 			tempOperations = event.srcElement.value;
-
+			console.log(tempOperations);
 			if (tempOperations === '=') {
-				return calculate(numbers, operations, tempNums);
+				console.log('yes');
+				calculate(numbers, operations, tempNums);
+				numbers = [];
+				numbers.push(result);
+				operations = '';
+				tempOperations = '';
+				tempNums = [];
 			} else {
 				calculate(numbers, operations, tempNums);
 				numbers = [];
@@ -132,7 +139,7 @@ function correct() {
 	}
 }
 window.addEventListener('keydown', (e) => {
-	console.log(e.key);
+
 	if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].indexOf(e.key) !== -1) {
 		if (numbers.length < 12 && operations === '' && numbers.indexOf(result) === -1) {
 			numbers.push(e.key);
@@ -151,7 +158,7 @@ window.addEventListener('keydown', (e) => {
 			return;
 		} else if (operations === '') {
 			operations = e.key;
-			document.getElementById('result').innerHTML = numbers.join('').toLocaleString() + operations;
+			document.getElementById('result').innerHTML = numbers.join('') + operations;
 		} else if ((operations === 'r' || operations === 'l') && numbers.length > 0) {
 			calculate(numbers, operations, tempNums);
 			numbers = [];
@@ -163,7 +170,7 @@ window.addEventListener('keydown', (e) => {
 				console.log('pressed =');
 				return calculate(numbers, operations, tempNums);
 			} else {
-				document.getElementById('result').innerHTML = numbers.join('').toLocaleString() + operations + tempNums.join('');
+				document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
 				calculate(numbers, operations, tempNums);
 				numbers = [];
 				numbers.push(result);
@@ -188,24 +195,28 @@ window.addEventListener('keypress', (f) => {
 	display(numbers, tempNums, operations);
 })
 
-function point() {
-	document.getElementById('dot').disabled = true;
 
-}
 let specials = document.querySelectorAll('.special');
 specials.forEach(button => {
 	button.addEventListener('click', event => {
 
 		if (event.srcElement.value === '-') {
-			console.log('yes');
 			plusMinus(numbers, tempNums);
 		} else if (event.srcElement.value === '.') {
-			floating(numbers, tempNums);
-		} else {
-			equality();
+			point(numbers, tempNums);
 		}
 	})
 })
+
+function point(first, second) {
+	if (second.length < 1 && first.indexOf('.') === -1) {
+		return first.push('.');
+	} else if (first.length > 0 && second.indexOf('.') === -1) {
+		return second.push('.');
+	} else {
+		return;
+	}
+}
 
 function plusMinus(first, second) {
 	if (first.length === 0) {
@@ -230,18 +241,33 @@ function plusMinus(first, second) {
 	}
 }
 
+
 function display(first, second, ops) {
+	if (ops === 'sq') {
+		ops = '\^';
+	} else if (ops === 'r') {
+		ops = '&radic;';
+	} else if (ops === 'log') {
+		ops = 1 + '\/';
+	}
 	let display = parseFloat(first.join(''));
-	let outputFirst = display.toLocaleString();
+	let outputFirst = display.toLocaleString(undefined, {
+		maximumFractionDigits: 12
+	});
 	display = parseFloat(second.join(''));
-	let outputSecond = display.toLocaleString();
-	 if (outputFirst === 'NaN' && outputSecond === 'NaN') {
+	let outputSecond = display.toLocaleString(undefined, {
+		maximumFractionDigits: 12
+	});
+	if (outputFirst === 'NaN' && outputSecond === 'NaN') {
 
 		return document.getElementById('result').innerHTML = 0;
-	}else if (outputSecond === 'NaN') {
-		return document.getElementById('result').innerHTML = outputFirst + ops;
-	}
-	else {
+	} else if (outputSecond === 'NaN') {
+		if (ops === '&radic;' || ops === '1\/') {
+			return document.getElementById('result').innerHTML = ops + outputFirst;
+		} else {
+			return document.getElementById('result').innerHTML = outputFirst + ops;
+		}
+	} else {
 		document.getElementById('top').innerHTML = outputFirst + ops;
 		document.getElementById('result').innerHTML = outputSecond;
 	}
@@ -252,8 +278,7 @@ function display(first, second, ops) {
 
 /*
 for tommorow
-try with more true false statements
+
 check big numbers
-figure out the dot
 
 */
