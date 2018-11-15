@@ -11,6 +11,20 @@
 <body>
 
 	<div id="calculator">
+		<div id="helpDisplay">
+			<p>Shortcuts</p>
+			<ul>
+				<li>Button . is used for floating point</li>
+				<li>Button l is used for dividing through 1</li>
+				<li>Button r is used for square root</li>
+				<li>Button ^ is used for raising on power</li>
+				<li>Button % is used for counting percent value</li>
+				<li>Button ! is used for adding -</li>
+				<li>Backspace for removing mistyped values</li>
+				<li>Escape for deleting everything</li>
+
+			</ul>
+		</div>
 		<div id="display">
 			<p id="top"></p>
 			<p id="result">0</p>
@@ -39,7 +53,7 @@
 			<button onclick="cls()">Cls</button>
 			<button onclick="correct()">Back</button>
 			<button class="operations" value="=">&equals;</button>
-			<button class="help">&#63;</button>
+			<button class="help" onclick="help()">&#63;</button>
 		</div>
 	</div>
 	<script src="script.js"></script>

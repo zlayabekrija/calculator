@@ -54,10 +54,34 @@ p {
 button:hover {
 	background-color: white;
 }
+
 .help {
 	background-color: cornflowerblue;
 	border: blue;
 }
-#top{
+
+#top {
 	font-size: 1.9em;
+}
+
+#helpDisplay {
+	background-color: slategray;
+	border-radius: 20px;
+	box-shadow: 4px 4px black;
+	width: inherit;
+	height: 38%;
+	position: fixed;
+	z-index: 1;
+	display: none;
+}
+
+li {
+	font-size: .8em;
+	text-align: center;
+	font-family: cursive;
+}
+
+#helpDisplay > p {
+	text-align: center;
+	font-family: cursive;
 }

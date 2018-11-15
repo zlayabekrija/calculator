@@ -12,7 +12,6 @@ number.forEach(button => {
 	button.addEventListener('click', event => {
 		if (numbers.length < 12 && operations === '' && numbers.indexOf(result) === -1) {
 			numbers.push(event.srcElement.value);
-			console.log(numbers);
 			if (numbers[0] === '0') {
 				numbers.shift();
 			}
@@ -45,7 +44,6 @@ operation.forEach(button => {
 			tempOperations = event.srcElement.value;
 			console.log(tempOperations);
 			if (tempOperations === '=') {
-				console.log('yes');
 				calculate(numbers, operations, tempNums);
 				numbers = [];
 				numbers.push(result);
@@ -103,6 +101,9 @@ function calculate(firstValue, operations, secondValue) {
 		case 'l':
 			result = 1 / first;
 			break;
+		case '\^':
+			result = first ** second;
+			break;
 		default:
 			return;
 
@@ -124,22 +125,8 @@ function cls() {
 	return document.getElementById('result').innerHTML = 0;
 }
 
-function correct() {
 
-	if (tempNums.length > 0) {
-		return tempNums.pop();
-	} else if (operations !== '') {
-		return operations = '';
-
-	} else if (numbers.length > 1) {
-		return numbers.pop();
-
-	} else {
-		return;
-	}
-}
 window.addEventListener('keydown', (e) => {
-
 	if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].indexOf(e.key) !== -1) {
 		if (numbers.length < 12 && operations === '' && numbers.indexOf(result) === -1) {
 			numbers.push(e.key);
@@ -153,7 +140,7 @@ window.addEventListener('keydown', (e) => {
 		}
 
 
-	} else if (['+', '-', '*', '/', '%', 'r', 'l'].indexOf(e.key) !== -1) {
+	} else if (['+', '-', '*', '/', '%', 'r', 'l', '\^','='].indexOf(e.key) !== -1) {
 		if (numbers.length < 1) {
 			return;
 		} else if (operations === '') {
@@ -166,9 +153,15 @@ window.addEventListener('keydown', (e) => {
 			operations = '';
 		} else if (operations !== '' && tempNums.length > 0) {
 			tempOperations = e.key;
+			console.log(tempOperations);
 			if (tempOperations === '=') {
-				console.log('pressed =');
-				return calculate(numbers, operations, tempNums);
+				console.log(tempOperations);
+				calculate(numbers, operations, tempNums);
+				numbers = [];
+				numbers.push(result);
+				operations = '';
+				tempOperations = '';
+				tempNums = [];
 			} else {
 				document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
 				calculate(numbers, operations, tempNums);
@@ -183,18 +176,34 @@ window.addEventListener('keydown', (e) => {
 			return;
 		}
 	} else if (e.key === 'Backspace') {
-		correct();
+		return correct();
 	} else if (e.key === 'Escape') {
 		cls();
+	} else if (e.key === '.') {
+		point(numbers, tempNums);
 	}
 })
 window.addEventListener('click', (n) => {
 	display(numbers, tempNums, operations);
 })
-window.addEventListener('keypress', (f) => {
+window.addEventListener('keydown', (f) => {
 	display(numbers, tempNums, operations);
 })
 
+function correct() {
+
+	if (tempNums.length > 0) {
+		return tempNums.pop();
+	} else if (operations !== '') {
+		return operations = '';
+
+	} else if (numbers.length > 1) {
+		return numbers.pop();
+
+	} else {
+		return;
+	}
+}
 
 let specials = document.querySelectorAll('.special');
 specials.forEach(button => {
@@ -243,11 +252,11 @@ function plusMinus(first, second) {
 
 
 function display(first, second, ops) {
-	if (ops === 'sq') {
+	if (ops === 'sq' || ops === '\^') {
 		ops = '\^';
 	} else if (ops === 'r') {
 		ops = '&radic;';
-	} else if (ops === 'log') {
+	} else if (ops === 'log' || ops === 'l') {
 		ops = 1 + '\/';
 	}
 	let display = parseFloat(first.join(''));
@@ -274,11 +283,21 @@ function display(first, second, ops) {
 
 }
 
+function help() {
+	let para = document.getElementById('helpDisplay');
+	let compStyles = window.getComputedStyle(para);
+	let check = compStyles.getPropertyValue('display');
+	let showHide = document.getElementById('helpDisplay').style;
+	if (check === 'none') {
+		showHide.setProperty('display', 'block');
+	} else {
+		showHide.setProperty('display', 'none');
+	}
 
+}
 
 /*
 for tommorow
-
-check big numbers
+fix equality
 
 */
