@@ -87,3 +87,12 @@ li {
 	text-align: center;
 	font-family: cursive;
 }
+.operations {
+	background-color: darkgrey;
+}
+.special {
+	background-color: darkgray;
+}
+.ops {
+	background-color: cornflowerblue;
+}
