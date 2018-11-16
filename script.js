@@ -42,23 +42,12 @@ operation.forEach(button => {
 
 		} else if (operations !== '' && tempNums.length > 0) {
 			tempOperations = event.srcElement.value;
-			console.log(tempOperations);
-			if (tempOperations === '=') {
-				calculate(numbers, operations, tempNums);
-				numbers = [];
-				numbers.push(result);
-				operations = '';
-				tempOperations = '';
-				tempNums = [];
-			} else {
-				calculate(numbers, operations, tempNums);
-				numbers = [];
-				numbers.push(result);
-				operations = tempOperations;
-				tempOperations = '';
-				tempNums = [];
-			}
-
+			calculate(numbers, operations, tempNums);
+			numbers = [];
+			numbers.push(result);
+			operations = tempOperations;
+			tempOperations = '';
+			tempNums = [];
 		} else {
 			return;
 		}
@@ -140,7 +129,7 @@ window.addEventListener('keydown', (e) => {
 		}
 
 
-	} else if (['+', '-', '*', '/', '%', 'r', 'l', '\^','='].indexOf(e.key) !== -1) {
+	} else if (['+', '-', '*', '/', '%', 'r', 'l', '\^'].indexOf(e.key) !== -1) {
 		if (numbers.length < 1) {
 			return;
 		} else if (operations === '') {
@@ -153,25 +142,13 @@ window.addEventListener('keydown', (e) => {
 			operations = '';
 		} else if (operations !== '' && tempNums.length > 0) {
 			tempOperations = e.key;
-			console.log(tempOperations);
-			if (tempOperations === '=') {
-				console.log(tempOperations);
-				calculate(numbers, operations, tempNums);
-				numbers = [];
-				numbers.push(result);
-				operations = '';
-				tempOperations = '';
-				tempNums = [];
-			} else {
-				document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
-				calculate(numbers, operations, tempNums);
-				numbers = [];
-				numbers.push(result);
-				operations = tempOperations;
-				tempOperations = '';
-				tempNums = [];
-			}
-
+			document.getElementById('result').innerHTML = numbers.join('') + operations + tempNums.join('');
+			calculate(numbers, operations, tempNums);
+			numbers = [];
+			numbers.push(result);
+			operations = tempOperations;
+			tempOperations = '';
+			tempNums = [];
 		} else {
 			return;
 		}
@@ -181,6 +158,13 @@ window.addEventListener('keydown', (e) => {
 		cls();
 	} else if (e.key === '.') {
 		point(numbers, tempNums);
+	} else if (e.key === '=') {
+		calculate(numbers, operations, tempNums);
+		numbers = [];
+		numbers.push(result);
+		operations = '';
+		tempOperations = '';
+		tempNums = [];
 	}
 })
 window.addEventListener('click', (n) => {
@@ -213,6 +197,13 @@ specials.forEach(button => {
 			plusMinus(numbers, tempNums);
 		} else if (event.srcElement.value === '.') {
 			point(numbers, tempNums);
+		} else if (event.srcElement.value === '=') {
+			calculate(numbers, operations, tempNums);
+			numbers = [];
+			numbers.push(result);
+			operations = '';
+			tempOperations = '';
+			tempNums = [];
 		}
 	})
 })
@@ -295,9 +286,3 @@ function help() {
 	}
 
 }
-
-/*
-for tommorow
-fix equality
-
-*/

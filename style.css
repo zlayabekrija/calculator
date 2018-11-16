@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Orbitron');
-
+body {
+	background-image: linear-gradient(to right, purple 5%, white 95%);
+}
 #calculator {
 	position: relative;
 	margin: auto;
