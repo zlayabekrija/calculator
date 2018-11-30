@@ -181,13 +181,10 @@ function correct() {
 	} else if (operations !== '') {
 		return operations = '';
 
-	} else if (numbers.length > 1) {
+	} else if (numbers.length >= 1) {
 		return numbers.pop();
 
-	} else if (numbers.lenght === 0){
-		return numbers[0] = 1;
-	}
-	else {
+	} else {
 		return;
 	}
 }
