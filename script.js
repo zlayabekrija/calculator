@@ -184,7 +184,10 @@ function correct() {
 	} else if (numbers.length > 1) {
 		return numbers.pop();
 
-	} else {
+	} else if (numbers.lenght === 0){
+		return numbers[0] = 1;
+	}
+	else {
 		return;
 	}
 }
