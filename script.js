@@ -252,13 +252,24 @@ function display(first, second, ops) {
 		ops = 1 + '\/';
 	}
 	let display = parseFloat(first.join(''));
-	let outputFirst = display.toLocaleString(undefined, {
-		maximumFractionDigits: 12
-	});
+	let outputFirst;
+	if (display > Math.pow(10,11)){
+		outputFirst = display.toExponential(6);
+	} else {
+		outputFirst = display.toLocaleString(undefined, {
+			maximumFractionDigits: 12
+		});
+	}
 	display = parseFloat(second.join(''));
-	let outputSecond = display.toLocaleString(undefined, {
-		maximumFractionDigits: 12
-	});
+
+	let outputSecond;
+	if (display > Math.pow(10,11)){
+		outputSecond = display.toExponential(6);
+	} else {
+		outputSecond = display.toLocaleString(undefined, {
+			maximumFractionDigits: 12
+		});
+	}
 	if (outputFirst === 'NaN' && outputSecond === 'NaN') {
 
 		return document.getElementById('result').innerHTML = 0;
