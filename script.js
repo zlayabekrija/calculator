@@ -153,6 +153,7 @@ window.addEventListener('keydown', (e) => {
 			return;
 		}
 	} else if (e.key === 'Backspace') {
+		e.preventDefault();
 		return correct();
 	} else if (e.key === 'Escape') {
 		cls();
